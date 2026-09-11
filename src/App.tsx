@@ -132,6 +132,11 @@ export default function App() {
       .slice(0, 5);
   }, [processedData]);
 
+  // --- Dark mode class on <html> ---
+  useEffect(() => {
+    document.documentElement.classList.toggle('dark', darkMode);
+  }, [darkMode]);
+
   // --- Loading state ---
   if (loading) return (
     <div className="h-screen w-full flex flex-col items-center justify-center gap-4 bg-slate-50 dark:bg-slate-900">
@@ -141,24 +146,24 @@ export default function App() {
   );
 
   return (
-    <div className={darkMode ? 'dark' : ''}>
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-4 md:p-8 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-4 md:p-8 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto">
 
-          <DashboardHeader darkMode={darkMode} setDarkMode={setDarkMode} />
+        <DashboardHeader darkMode={darkMode} setDarkMode={setDarkMode} />
 
-          {error && (
-            <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl flex items-center gap-3 text-amber-700 dark:text-amber-400 text-sm">
-              <AlertCircle size={18} />
-              <span>API connection failed. Showing demonstration data for portfolio purposes.</span>
-            </div>
-          )}
+        {error && (
+          <div className="mb-6 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl flex items-center gap-3 text-amber-700 dark:text-amber-400 text-sm">
+            <AlertCircle size={18} />
+            <span>API connection failed. Showing demonstration data for portfolio purposes.</span>
+          </div>
+        )}
 
-          <FilterBar
-            category={category} setCategory={setCategory}
-            dateRange={dateRange} setDateRange={setDateRange}
-          />
+        <FilterBar
+          category={category} setCategory={setCategory}
+          dateRange={dateRange} setDateRange={setDateRange}
+        />
 
+        <main>
           {/* KPI Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <KpiCard
@@ -196,19 +201,33 @@ export default function App() {
           {/* Data Table */}
           <div className="mb-8">
             <h3 className="text-lg font-bold mb-4 text-slate-800 dark:text-white">Recent Transactions</h3>
-            <OrdersTable
-              data={paginatedData}
-              sortConfig={sortConfig}
-              requestSort={(key) => setSortConfig({
-                key,
-                direction: sortConfig?.key === key && sortConfig.direction === 'asc' ? 'desc' : 'asc',
-              })}
-              currentPage={currentPage}
-              totalPages={totalPages}
-              setPage={(updater) => setCurrentPage((p) => updater(p))}
-            />
+            {processedData.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-slate-500 dark:text-slate-400 text-lg">
+                  No orders match your current filters.
+                </p>
+                <button
+                  onClick={() => { setCategory('All'); setDateRange('all'); }}
+                  className="mt-4 text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Clear all filters
+                </button>
+              </div>
+            ) : (
+              <OrdersTable
+                data={paginatedData}
+                sortConfig={sortConfig}
+                requestSort={(key) => setSortConfig({
+                  key,
+                  direction: sortConfig?.key === key && sortConfig.direction === 'asc' ? 'desc' : 'asc',
+                })}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                setPage={(updater) => setCurrentPage((p) => updater(p))}
+              />
+            )}
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

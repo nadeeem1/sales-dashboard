@@ -11,7 +11,9 @@ export const FilterBar = ({ category, setCategory, dateRange, setDateRange }: Fi
   <div className="flex flex-wrap gap-4 mb-8 p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
     <div className="flex items-center gap-2 min-w-[200px]">
       <Filter size={18} className="text-slate-400" />
+      <label htmlFor="category-filter" className="sr-only">Filter by category</label>
       <select
+        id="category-filter"
         value={category}
         onChange={(e) => setCategory(e.target.value)}
         className="w-full bg-transparent text-sm font-medium text-slate-700 dark:text-slate-300 outline-none cursor-pointer"
@@ -25,7 +27,9 @@ export const FilterBar = ({ category, setCategory, dateRange, setDateRange }: Fi
     </div>
     <div className="flex items-center gap-2 min-w-[200px] border-l pl-4 border-slate-200 dark:border-slate-700">
       <Calendar size={18} className="text-slate-400" />
+      <label htmlFor="date-range-filter" className="sr-only">Filter by date range</label>
       <select
+        id="date-range-filter"
         value={dateRange}
         onChange={(e) => setDateRange(e.target.value)}
         className="w-full bg-transparent text-sm font-medium text-slate-700 dark:text-slate-300 outline-none cursor-pointer"

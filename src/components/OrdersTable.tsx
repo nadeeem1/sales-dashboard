@@ -22,16 +22,16 @@ export const OrdersTable = ({ data, sortConfig, requestSort, currentPage, totalP
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-slate-50 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 text-xs uppercase font-semibold">
-              <th className="p-4 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => requestSort('id')}>
+              <th className="p-4 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => requestSort('id')} aria-label="Sort by Order ID">
                 <div className="flex items-center gap-2">Order ID {getSortIcon('id')}</div>
               </th>
-              <th className="p-4 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => requestSort('customer')}>
+              <th className="p-4 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => requestSort('customer')} aria-label="Sort by Customer">
                 <div className="flex items-center gap-2">Customer {getSortIcon('customer')}</div>
               </th>
-              <th className="p-4 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => requestSort('date')}>
+              <th className="p-4 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => requestSort('date')} aria-label="Sort by Date">
                 <div className="flex items-center gap-2">Date {getSortIcon('date')}</div>
               </th>
-              <th className="p-4 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => requestSort('amount')}>
+              <th className="p-4 cursor-pointer hover:text-blue-600 transition-colors" onClick={() => requestSort('amount')} aria-label="Sort by Amount">
                 <div className="flex items-center gap-2">Amount {getSortIcon('amount')}</div>
               </th>
               <th className="p-4">Status</th>
@@ -68,6 +68,7 @@ export const OrdersTable = ({ data, sortConfig, requestSort, currentPage, totalP
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
+            aria-label="Previous page"
             className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all"
           >
             <ChevronLeft size={16} />
@@ -75,6 +76,7 @@ export const OrdersTable = ({ data, sortConfig, requestSort, currentPage, totalP
           <button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages || totalPages === 0}
+            aria-label="Next page"
             className="p-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 disabled:opacity-50 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all"
           >
             <ChevronRight size={16} />

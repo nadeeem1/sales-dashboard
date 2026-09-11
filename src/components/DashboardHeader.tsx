@@ -13,6 +13,7 @@ export const DashboardHeader = ({ darkMode, setDarkMode }: { darkMode: boolean, 
     </div>
     <button
       onClick={() => setDarkMode(!darkMode)}
+      aria-label="Toggle dark mode"
       className="p-2 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all"
     >
       {darkMode ? <Sun size={20} /> : <Moon size={20} />}
